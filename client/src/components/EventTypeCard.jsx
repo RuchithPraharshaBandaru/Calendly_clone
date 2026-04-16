@@ -30,10 +30,10 @@ function EventTypeCard({ event, onDelete, onToggle, onCopy }) {
       </div>
       <div className="event-row-actions">
         <button className="action-btn copy-btn" onClick={handleCopy} title="Copy link">
-          🔗 Copy link
+          Copy link
         </button>
-        <button className="action-btn" onClick={() => navigate(`/event-types/${event.id}/edit`)} title="Edit">
-          ✏️
+        <button className="action-btn edit-btn" onClick={() => navigate(`/event-types/${event.id}/edit`)} title="Edit">
+          Edit
         </button>
         <div className="toggle-wrapper">
           <label className="toggle-switch">
@@ -46,7 +46,7 @@ function EventTypeCard({ event, onDelete, onToggle, onCopy }) {
           </label>
         </div>
         <button className="action-btn action-danger" onClick={() => onDelete(event.id)} title="Delete">
-          🗑️
+          Delete
         </button>
       </div>
     </div>

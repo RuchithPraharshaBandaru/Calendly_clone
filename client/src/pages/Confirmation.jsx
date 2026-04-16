@@ -23,11 +23,13 @@ function Confirmation() {
           <div className="confirmation-icon">✓</div>
           <h1 className="confirmation-title">Booking Confirmed</h1>
           <p className="confirmation-subtitle">Your meeting has been scheduled.</p>
-          <Link to="/" className="back-home-link">← Back to Home</Link>
+          <Link to="/" className="back-home-link">Back to Home</Link>
         </div>
       </div>
     );
   }
+
+  const slug = eventType?.slug || '';
 
   return (
     <div className="confirmation-page">
@@ -42,51 +44,41 @@ function Confirmation() {
           <h3 className="detail-event-name">{eventType?.name || 'Meeting'}</h3>
           
           <div className="detail-row">
-            <span className="detail-icon">👤</span>
-            <div>
-              <span className="detail-label">Host</span>
-              <span className="detail-value">{eventType?.user_name || 'Host'}</span>
-            </div>
+            <span className="detail-label">Host</span>
+            <span className="detail-value">{eventType?.user_name || 'Host'}</span>
           </div>
 
           <div className="detail-row">
-            <span className="detail-icon">📅</span>
-            <div>
-              <span className="detail-label">Date</span>
-              <span className="detail-value">{formatDate(meeting.start_time)}</span>
-            </div>
+            <span className="detail-label">Date</span>
+            <span className="detail-value">{formatDate(meeting.start_time)}</span>
           </div>
 
           <div className="detail-row">
-            <span className="detail-icon">🕐</span>
-            <div>
-              <span className="detail-label">Time</span>
-              <span className="detail-value">
-                {formatTime(meeting.start_time)} - {formatTime(meeting.end_time)}
-              </span>
-            </div>
+            <span className="detail-label">Time</span>
+            <span className="detail-value">
+              {formatTime(meeting.start_time)} - {formatTime(meeting.end_time)}
+            </span>
           </div>
 
           <div className="detail-row">
-            <span className="detail-icon">⏱️</span>
-            <div>
-              <span className="detail-label">Duration</span>
-              <span className="detail-value">{eventType?.duration || 30} minutes</span>
-            </div>
+            <span className="detail-label">Duration</span>
+            <span className="detail-value">{eventType?.duration || 30} minutes</span>
           </div>
 
           <div className="detail-row">
-            <span className="detail-icon">✉️</span>
-            <div>
-              <span className="detail-label">Invitee</span>
-              <span className="detail-value">{meeting.invitee_name} ({meeting.invitee_email})</span>
-            </div>
+            <span className="detail-label">Invitee</span>
+            <span className="detail-value">{meeting.invitee_name} ({meeting.invitee_email})</span>
           </div>
         </div>
 
         <div className="confirmation-actions">
-          <Link to={`/book/${location.state?.eventType?.slug || ''}`} className="book-another-link">
-            Schedule another meeting
+          {slug && (
+            <Link to={`/book/${slug}`} className="book-another-link">
+              Schedule another meeting
+            </Link>
+          )}
+          <Link to="/" className="back-home-link">
+            Back to Dashboard
           </Link>
         </div>
       </div>

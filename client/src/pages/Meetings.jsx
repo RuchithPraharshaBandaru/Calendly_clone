@@ -58,7 +58,9 @@ function Meetings() {
   const handleReschedule = async () => {
     if (!newDateTime) return;
     try {
-      await rescheduleMeeting(rescheduleModal.id, { new_start_time: newDateTime });
+      // Convert datetime-local value to ISO string
+      const isoTime = new Date(newDateTime).toISOString();
+      await rescheduleMeeting(rescheduleModal.id, { new_start_time: isoTime });
       setRescheduleModal(null);
       setNewDateTime('');
       setToast({ message: 'Meeting rescheduled', type: 'success' });
@@ -112,7 +114,7 @@ function Meetings() {
         </div>
       ) : meetings.length === 0 ? (
         <div className="meetings-empty">
-          <div className="meetings-empty-icon">📋</div>
+          <div className="meetings-empty-icon">—</div>
           <h3>No {filter === 'upcoming' ? 'Upcoming' : 'Past'} Events</h3>
           <p>Share Event Type links to schedule events.</p>
         </div>

@@ -85,7 +85,7 @@ function Dashboard() {
           </div>
         ) : eventTypes.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-icon">📅</div>
+            <div className="empty-icon">—</div>
             <h3>No Event Types Yet</h3>
             <p>Create your first event type to start scheduling.</p>
             <button className="create-btn" onClick={() => navigate('/event-types/new')}>
