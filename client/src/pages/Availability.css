@@ -1,285 +1,339 @@
-.availability-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 24px;
+/* Calendly-style Availability Page */
+.availability-page {
+  padding: 32px 40px;
+  max-width: 960px;
 }
 
-.schedule-tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 24px;
-  overflow-x: auto;
-  padding-bottom: 4px;
+.availability-page h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 24px;
 }
 
-.schedule-tab {
-  padding: 10px 20px;
+/* Schedule Selector */
+.schedule-section {
   background: white;
   border: 1px solid #e5e7eb;
-  border-radius: 24px;
-  font-size: 14px;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.schedule-label {
+  font-size: 12px;
   font-weight: 500;
   color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 6px;
+}
+
+.schedule-select {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a2e;
   cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
+  background: white;
 }
 
-.schedule-tab:hover {
-  border-color: #0069ff;
-  color: #0069ff;
-}
-
-.schedule-tab.active {
-  background: #0069ff;
-  border-color: #0069ff;
-  color: white;
-}
-
-.availability-section {
+/* Weekly Hours Section */
+.hours-section {
   background: white;
   border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 28px;
-  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.section-title {
+.hours-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.hours-header h3 {
   font-size: 16px;
   font-weight: 600;
   color: #1a1a2e;
-  margin: 0 0 4px 0;
+  margin: 0;
 }
 
-.section-desc {
+.hours-header h3 span {
+  margin-right: 8px;
+}
+
+.hours-subtitle {
   font-size: 13px;
   color: #6b7280;
-  margin: 0 0 20px 0;
+  margin: 4px 0 0;
 }
 
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-label {
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  margin-bottom: 6px;
-}
-
-.form-input {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 14px;
-  font-family: inherit;
-  color: #1a1a2e;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  box-sizing: border-box;
-  background: white;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: #0069ff;
-  box-shadow: 0 0 0 3px rgba(0, 105, 255, 0.1);
-}
-
-/* Weekly Grid */
-.weekly-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin-top: 16px;
-}
-
+/* Day Rows */
 .day-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px;
-  background: #f9fafb;
-  border-radius: 8px;
-  transition: background 0.2s;
+  padding: 14px 24px;
+  border-bottom: 1px solid #f3f4f6;
+  gap: 16px;
 }
 
-.day-row:hover {
-  background: #f3f4f6;
+.day-row:last-child {
+  border-bottom: none;
 }
 
-.day-row.disabled {
-  opacity: 0.6;
-}
-
-.day-toggle {
+.day-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
-  min-width: 140px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  border: 2px solid transparent;
 }
 
-.day-toggle input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  accent-color: #0069ff;
-  cursor: pointer;
+.day-circle.active {
+  background: #1a1a2e;
+  color: white;
 }
 
-.day-name {
-  font-size: 14px;
+.day-circle.inactive {
+  background: #f3f4f6;
+  color: #9ca3af;
+}
+
+.day-circle:hover {
+  border-color: #0069ff;
+}
+
+.day-label {
+  font-size: 13px;
+  color: #9ca3af;
+  min-width: 80px;
+}
+
+.day-label.active-label {
+  color: #1a1a2e;
   font-weight: 500;
-  color: #374151;
 }
 
-.time-range {
+.day-times {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex: 1;
 }
 
 .time-input {
-  padding: 8px 12px;
+  padding: 6px 10px;
   border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 14px;
-  font-family: inherit;
+  border-radius: 6px;
+  font-size: 13px;
   color: #1a1a2e;
+  width: 100px;
   background: white;
-  width: auto;
-}
-
-.time-input:focus {
-  outline: none;
-  border-color: #0069ff;
-  box-shadow: 0 0 0 3px rgba(0, 105, 255, 0.1);
 }
 
 .time-separator {
   color: #9ca3af;
-  font-size: 14px;
+  font-size: 13px;
 }
 
-.unavailable-text {
-  font-size: 14px;
+.day-action-btn {
+  background: none;
+  border: none;
   color: #9ca3af;
-  font-style: italic;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 16px;
+  transition: color 0.15s;
+  flex-shrink: 0;
 }
 
-/* Date Overrides */
-.overrides-list {
-  margin-bottom: 16px;
+.day-action-btn:hover {
+  color: #1a1a2e;
 }
 
-.override-item {
+.day-unavailable {
+  font-size: 13px;
+  color: #9ca3af;
+  flex: 1;
+}
+
+/* Date Overrides Section */
+.overrides-section {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-top: 24px;
+  overflow: hidden;
+}
+
+.overrides-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.overrides-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.overrides-header h3 span {
+  margin-right: 8px;
+}
+
+.add-hours-btn {
+  padding: 6px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 20px;
+  background: white;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.add-hours-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.override-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  background: #f9fafb;
-  border-radius: 8px;
-  margin-bottom: 8px;
+  padding: 12px 24px;
+  border-bottom: 1px solid #f3f4f6;
+  gap: 16px;
 }
 
 .override-date {
   font-size: 14px;
   font-weight: 500;
   color: #1a1a2e;
-  margin-right: 12px;
+  min-width: 120px;
 }
 
-.override-time {
+.override-times {
   font-size: 13px;
   color: #6b7280;
+  flex: 1;
 }
 
-.override-delete {
+.override-remove {
   background: none;
   border: none;
-  color: #ef4444;
-  font-size: 20px;
+  color: #9ca3af;
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
+  font-size: 16px;
+  padding: 4px;
 }
 
-.override-delete:hover {
-  background: #fef2f2;
+.override-remove:hover {
+  color: #dc2626;
 }
 
-.add-override {
+.override-empty {
+  padding: 24px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+/* Override Form */
+.override-form {
+  padding: 16px 24px;
+  border-top: 1px solid #e5e7eb;
+  background: #fafbfc;
+}
+
+.override-form-row {
   display: flex;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.add-override .form-input {
-  width: auto;
-  flex: 0 0 auto;
+.override-form label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
 }
 
-.add-override span {
-  font-size: 14px;
-  color: #6b7280;
+.override-form input {
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 13px;
 }
 
-.checkbox-label {
+.save-override-btn {
+  padding: 6px 16px;
+  background: #0069ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.save-override-btn:hover {
+  background: #0055d4;
+}
+
+/* Timezone */
+.timezone-section {
+  margin-top: 24px;
+  padding: 16px 24px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 14px;
+  gap: 12px;
+}
+
+.timezone-section label {
+  font-size: 13px;
+  font-weight: 500;
   color: #374151;
-  cursor: pointer;
-  white-space: nowrap;
 }
 
-/* Save Bar */
-.save-bar {
-  display: flex;
-  justify-content: flex-end;
-  padding: 8px 0;
+.timezone-select {
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #1a1a2e;
+  flex: 1;
+  max-width: 300px;
 }
 
-.save-btn {
-  min-width: 160px;
-}
-
-/* Responsive */
 @media (max-width: 768px) {
-  .availability-header {
-    flex-direction: column;
-    gap: 16px;
+  .availability-page {
+    padding: 20px 16px;
   }
-
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
   .day-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    flex-wrap: wrap;
+    padding: 12px 16px;
   }
-
-  .add-override {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .add-override .form-input,
-  .add-override .time-input {
+  .day-times {
     width: 100%;
   }
 }

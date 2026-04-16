@@ -1,47 +1,59 @@
 /**
- * Navbar Component
+ * Sidebar Navigation (Calendly-style)
  * 
- * Top navigation bar with the Calendly-like design.
- * Shows the app logo/name and navigation links.
- * Uses React Router's NavLink for active link highlighting.
- * 
- * Why NavLink over Link?: NavLink automatically adds an "active" 
- * class to the current route link, which is perfect for nav highlighting.
+ * Left sidebar with icon + text links, matching Calendly's actual layout.
+ * Collapsible on mobile. Has a "+ Create" button at the top.
  */
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar() {
-  return (
-    <nav className="navbar">
-      <div className="navbar-container">
-        <NavLink to="/" className="navbar-logo">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="24" height="24" rx="6" fill="#0069ff"/>
-            <path d="M7 12L10.5 15.5L17 8.5" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          <span>Calendly</span>
-        </NavLink>
-        
-        <div className="navbar-links">
-          <NavLink to="/" end className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-            Event Types
-          </NavLink>
-          <NavLink to="/availability" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-            Availability
-          </NavLink>
-          <NavLink to="/meetings" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-            Meetings
-          </NavLink>
-        </div>
+  const navigate = useNavigate();
 
-        <div className="navbar-user">
-          <div className="user-avatar">JD</div>
-          <span className="user-name">John Doe</span>
+  return (
+    <aside className="sidebar">
+      {/* Logo */}
+      <div className="sidebar-logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="14" fill="#0069ff"/>
+          <path d="M8 14.5C8 11.5 10.5 9 13.5 9C15.5 9 17.2 10.1 18.1 11.7" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+          <circle cx="18" cy="11" r="2" fill="white"/>
+        </svg>
+        <span className="sidebar-brand">Calendly</span>
+      </div>
+
+      {/* Create Button */}
+      <button className="sidebar-create-btn" onClick={() => navigate('/event-types/new')}>
+        + Create
+      </button>
+
+      {/* Navigation Links */}
+      <nav className="sidebar-nav">
+        <NavLink to="/" end className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
+          <span className="sidebar-icon">📅</span>
+          <span className="sidebar-text">Scheduling</span>
+        </NavLink>
+
+        <NavLink to="/meetings" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
+          <span className="sidebar-icon">📋</span>
+          <span className="sidebar-text">Meetings</span>
+        </NavLink>
+
+        <NavLink to="/availability" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>
+          <span className="sidebar-icon">🕐</span>
+          <span className="sidebar-text">Availability</span>
+        </NavLink>
+      </nav>
+
+      {/* Bottom section */}
+      <div className="sidebar-bottom">
+        <div className="sidebar-user">
+          <div className="sidebar-avatar">R</div>
+          <span className="sidebar-user-name">User</span>
         </div>
       </div>
-    </nav>
+    </aside>
   );
 }
 

@@ -1,16 +1,14 @@
 /**
- * Meetings Page (Admin)
+ * Meetings Page — Calendly-style
  * 
- * View and manage all meetings. Split into Upcoming and Past tabs.
- * Each meeting card shows invitee info, event type, date/time,
- * and provides cancel/reschedule actions.
- * 
- * Rescheduling opens a modal to pick a new date and time.
+ * Matches Calendly's Meetings page layout:
+ * - "Meetings" title with event count
+ * - Upcoming / Past tabs
+ * - Flat meeting cards with date badge, color dot, details, and actions
  */
 
 import { useState, useEffect } from 'react';
 import { getMeetings, cancelMeeting, rescheduleMeeting } from '../api';
-import { formatDate, formatTime, getRelativeDate } from '../utils/dateUtils';
 import Modal from '../components/Modal';
 import Toast from '../components/Toast';
 import './Meetings.css';
@@ -20,8 +18,12 @@ function Meetings() {
   const [filter, setFilter] = useState('upcoming');
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
+
+  // Cancel modal
   const [cancelModal, setCancelModal] = useState(null);
   const [cancelReason, setCancelReason] = useState('');
+
+  // Reschedule modal
   const [rescheduleModal, setRescheduleModal] = useState(null);
   const [newDateTime, setNewDateTime] = useState('');
 
@@ -42,189 +44,209 @@ function Meetings() {
   };
 
   const handleCancel = async () => {
-    if (!cancelModal) return;
     try {
       await cancelMeeting(cancelModal.id, { cancel_reason: cancelReason });
       setCancelModal(null);
       setCancelReason('');
-      fetchMeetings();
       setToast({ message: 'Meeting cancelled', type: 'success' });
+      fetchMeetings();
     } catch (error) {
-      setToast({ message: 'Failed to cancel meeting', type: 'error' });
+      setToast({ message: 'Failed to cancel', type: 'error' });
     }
   };
 
   const handleReschedule = async () => {
-    if (!rescheduleModal || !newDateTime) return;
+    if (!newDateTime) return;
     try {
       await rescheduleMeeting(rescheduleModal.id, { new_start_time: newDateTime });
       setRescheduleModal(null);
       setNewDateTime('');
+      setToast({ message: 'Meeting rescheduled', type: 'success' });
       fetchMeetings();
-      setToast({ message: 'Meeting rescheduled!', type: 'success' });
     } catch (error) {
       const msg = error.response?.data?.message || 'Failed to reschedule';
       setToast({ message: msg, type: 'error' });
     }
   };
 
-  const getStatusBadge = (status) => {
-    const styles = {
-      scheduled: { bg: '#ecfdf5', color: '#065f46', text: 'Scheduled' },
-      cancelled: { bg: '#fef2f2', color: '#991b1b', text: 'Cancelled' },
-      rescheduled: { bg: '#eff6ff', color: '#1e40af', text: 'Rescheduled' }
+  const formatDate = (dateStr) => {
+    const d = new Date(dateStr);
+    return {
+      day: d.toLocaleDateString('en-US', { weekday: 'short' }),
+      num: d.getDate(),
+      time: d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
     };
-    const s = styles[status] || styles.scheduled;
-    return (
-      <span className="status-badge" style={{ background: s.bg, color: s.color }}>
-        {s.text}
-      </span>
-    );
   };
 
   return (
-    <div className="page-container meetings-page">
+    <div className="meetings-page">
+      {/* Header */}
       <div className="meetings-header">
-        <h1 className="page-title">Scheduled Meetings</h1>
-        <p className="page-subtitle">View and manage your booked meetings.</p>
+        <h1>Meetings</h1>
+        <span className="meetings-count">
+          Displaying {meetings.length} event{meetings.length !== 1 ? 's' : ''}
+        </span>
       </div>
 
-      {/* Filter Tabs */}
-      <div className="filter-tabs">
-        <button 
-          className={`filter-tab ${filter === 'upcoming' ? 'active' : ''}`}
+      {/* Tabs */}
+      <div className="meetings-tabs">
+        <button
+          className={`meetings-tab ${filter === 'upcoming' ? 'active' : ''}`}
           onClick={() => setFilter('upcoming')}
         >
           Upcoming
         </button>
-        <button 
-          className={`filter-tab ${filter === 'past' ? 'active' : ''}`}
+        <button
+          className={`meetings-tab ${filter === 'past' ? 'active' : ''}`}
           onClick={() => setFilter('past')}
         >
           Past
         </button>
       </div>
 
-      {/* Meetings List */}
+      {/* Meeting List */}
       {loading ? (
-        <div className="loading-state">
+        <div className="meetings-empty">
           <div className="spinner"></div>
           <p>Loading meetings...</p>
         </div>
       ) : meetings.length === 0 ? (
-        <div className="empty-state">
-          <div className="empty-icon">📭</div>
-          <h3>No {filter} meetings</h3>
-          <p>{filter === 'upcoming' ? 'You don\'t have any upcoming meetings.' : 'No past meetings to show.'}</p>
+        <div className="meetings-empty">
+          <div className="meetings-empty-icon">📋</div>
+          <h3>No {filter === 'upcoming' ? 'Upcoming' : 'Past'} Events</h3>
+          <p>Share Event Type links to schedule events.</p>
         </div>
       ) : (
-        <div className="meetings-list">
-          {meetings.map(meeting => (
-            <div key={meeting.id} className={`meeting-card ${meeting.status !== 'scheduled' ? 'meeting-inactive' : ''}`}>
-              <div className="meeting-color" style={{ background: meeting.color || '#0069ff' }}></div>
-              <div className="meeting-content">
-                <div className="meeting-top">
-                  <div className="meeting-info">
-                    <div className="meeting-date-badge">
-                      <span className="meeting-day">{formatDate(meeting.start_time, 'dd')}</span>
-                      <span className="meeting-month">{formatDate(meeting.start_time, 'MMM')}</span>
-                    </div>
-                    <div>
-                      <h4 className="meeting-event-name">{meeting.event_name}</h4>
-                      <p className="meeting-invitee">
-                        👤 {meeting.invitee_name} • {meeting.invitee_email}
-                      </p>
-                      <p className="meeting-time">
-                        🕐 {getRelativeDate(meeting.start_time)} • {formatTime(meeting.start_time)} - {formatTime(meeting.end_time)}
-                      </p>
-                      <p className="meeting-duration">{meeting.duration} minutes</p>
-                    </div>
-                  </div>
-                  <div className="meeting-right">
-                    {getStatusBadge(meeting.status)}
-                  </div>
+        <div className="meeting-list">
+          {meetings.map(meeting => {
+            const { day, num, time } = formatDate(meeting.start_time);
+            const endTime = new Date(meeting.end_time).toLocaleTimeString('en-US', {
+              hour: 'numeric', minute: '2-digit', hour12: true
+            });
+
+            return (
+              <div key={meeting.id} className="meeting-card">
+                <div className="meeting-date-badge">
+                  <div className="date-day">{day}</div>
+                  <div className="date-num">{num}</div>
                 </div>
+
+                <div
+                  className="meeting-color-dot"
+                  style={{ background: meeting.event_color || '#0069ff' }}
+                ></div>
+
+                <div className="meeting-info">
+                  <p className="meeting-time">{time} - {endTime}</p>
+                  <h3 className="meeting-event-name">{meeting.event_name}</h3>
+                  <p className="meeting-invitee">
+                    {meeting.invitee_name} • {meeting.invitee_email}
+                  </p>
+                </div>
+
+                <span className={`meeting-status status-${meeting.status}`}>
+                  {meeting.status}
+                </span>
 
                 {meeting.status === 'scheduled' && filter === 'upcoming' && (
                   <div className="meeting-actions">
-                    <button 
-                      className="btn-reschedule"
+                    <button
+                      className="meeting-action-btn"
                       onClick={() => setRescheduleModal(meeting)}
                     >
-                      🔄 Reschedule
+                      Reschedule
                     </button>
-                    <button 
-                      className="btn-cancel-meeting"
+                    <button
+                      className="meeting-action-btn cancel-btn"
                       onClick={() => setCancelModal(meeting)}
                     >
-                      ✕ Cancel
+                      Cancel
                     </button>
                   </div>
                 )}
-
-                {meeting.status === 'cancelled' && meeting.cancel_reason && (
-                  <p className="cancel-reason">Reason: {meeting.cancel_reason}</p>
-                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
       {/* Cancel Modal */}
-      <Modal 
-        isOpen={!!cancelModal} 
-        onClose={() => setCancelModal(null)} 
-        title="Cancel Meeting"
-        size="small"
-      >
-        <p style={{ color: '#6b7280', fontSize: '14px', margin: '0 0 16px' }}>
-          Are you sure you want to cancel the meeting with <strong>{cancelModal?.invitee_name}</strong>?
-        </p>
-        <div className="form-group" style={{ marginBottom: '20px' }}>
-          <label className="form-label">Reason (optional)</label>
+      {cancelModal && (
+        <Modal title="Cancel Meeting" onClose={() => setCancelModal(null)}>
+          <p style={{ margin: '0 0 12px', color: '#6b7280', fontSize: '14px' }}>
+            Cancel your meeting with <strong>{cancelModal.invitee_name}</strong>?
+          </p>
           <textarea
-            className="form-input"
-            placeholder="Provide a reason for cancellation..."
+            placeholder="Reason for cancellation (optional)"
             value={cancelReason}
             onChange={(e) => setCancelReason(e.target.value)}
             rows={3}
-            style={{ resize: 'vertical' }}
+            style={{
+              width: '100%', padding: '10px', border: '1px solid #d1d5db',
+              borderRadius: '8px', fontSize: '14px', resize: 'vertical',
+              fontFamily: 'inherit', marginBottom: '16px'
+            }}
           />
-        </div>
-        <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
-          <button className="btn-cancel" onClick={() => setCancelModal(null)}>Keep Meeting</button>
-          <button className="btn-danger" onClick={handleCancel}>Cancel Meeting</button>
-        </div>
-      </Modal>
+          <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+            <button
+              onClick={() => setCancelModal(null)}
+              style={{
+                padding: '8px 16px', border: '1px solid #d1d5db', borderRadius: '8px',
+                background: 'white', cursor: 'pointer', fontWeight: 500
+              }}
+            >
+              Keep
+            </button>
+            <button
+              onClick={handleCancel}
+              style={{
+                padding: '8px 16px', border: 'none', borderRadius: '8px',
+                background: '#dc2626', color: 'white', cursor: 'pointer', fontWeight: 600
+              }}
+            >
+              Cancel Meeting
+            </button>
+          </div>
+        </Modal>
+      )}
 
       {/* Reschedule Modal */}
-      <Modal 
-        isOpen={!!rescheduleModal} 
-        onClose={() => setRescheduleModal(null)} 
-        title="Reschedule Meeting"
-        size="small"
-      >
-        <p style={{ color: '#6b7280', fontSize: '14px', margin: '0 0 16px' }}>
-          Pick a new date and time for the meeting with <strong>{rescheduleModal?.invitee_name}</strong>.
-        </p>
-        <div className="form-group" style={{ marginBottom: '20px' }}>
-          <label className="form-label">New Date & Time</label>
+      {rescheduleModal && (
+        <Modal title="Reschedule Meeting" onClose={() => setRescheduleModal(null)}>
+          <p style={{ margin: '0 0 12px', color: '#6b7280', fontSize: '14px' }}>
+            Pick a new time for <strong>{rescheduleModal.invitee_name}</strong>:
+          </p>
           <input
             type="datetime-local"
-            className="form-input"
             value={newDateTime}
             onChange={(e) => setNewDateTime(e.target.value)}
-            min={new Date().toISOString().slice(0, 16)}
+            style={{
+              width: '100%', padding: '10px', border: '1px solid #d1d5db',
+              borderRadius: '8px', fontSize: '14px', marginBottom: '16px'
+            }}
           />
-        </div>
-        <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
-          <button className="btn-cancel" onClick={() => setRescheduleModal(null)}>Cancel</button>
-          <button className="btn-primary" onClick={handleReschedule} disabled={!newDateTime}>
-            Reschedule
-          </button>
-        </div>
-      </Modal>
+          <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+            <button
+              onClick={() => setRescheduleModal(null)}
+              style={{
+                padding: '8px 16px', border: '1px solid #d1d5db', borderRadius: '8px',
+                background: 'white', cursor: 'pointer', fontWeight: 500
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleReschedule}
+              style={{
+                padding: '8px 16px', border: 'none', borderRadius: '8px',
+                background: '#0069ff', color: 'white', cursor: 'pointer', fontWeight: 600
+              }}
+            >
+              Reschedule
+            </button>
+          </div>
+        </Modal>
+      )}
 
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
     </div>

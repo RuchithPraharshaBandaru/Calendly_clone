@@ -1,58 +1,84 @@
-.page-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 32px 24px;
+/* Calendly-style Scheduling Page */
+.dashboard-page {
+  padding: 32px 40px;
+  max-width: 960px;
 }
 
-.dashboard-header {
+/* Page Header */
+.page-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .page-title {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   color: #1a1a2e;
-  margin: 0 0 4px 0;
-}
-
-.page-subtitle {
-  font-size: 14px;
-  color: #6b7280;
   margin: 0;
 }
 
-.btn-primary {
+.create-btn {
+  padding: 10px 20px;
   background: #0069ff;
   color: white;
   border: none;
   border-radius: 24px;
-  padding: 12px 24px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
-  white-space: nowrap;
 }
 
-.btn-primary:hover {
-  background: #0058d6;
+.create-btn:hover {
+  background: #0055d4;
 }
 
+/* Tabs */
+.page-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+
+.tab-btn {
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab-btn:hover {
+  color: #1a1a2e;
+}
+
+.tab-active {
+  color: #0069ff;
+  border-bottom-color: #0069ff;
+  font-weight: 600;
+}
+
+/* Event List */
 .event-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
+/* Empty State */
 .empty-state {
   text-align: center;
-  padding: 80px 40px;
-  background: #f9fafb;
-  border: 2px dashed #e5e7eb;
-  border-radius: 16px;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
 }
 
 .empty-icon {
@@ -62,33 +88,26 @@
 
 .empty-state h3 {
   font-size: 18px;
+  font-weight: 600;
   color: #1a1a2e;
-  margin: 0 0 8px 0;
+  margin: 0 0 8px;
 }
 
 .empty-state p {
   font-size: 14px;
   color: #6b7280;
-  margin: 0 0 24px 0;
+  margin: 0 0 20px;
 }
 
-.loading-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 80px;
-  color: #6b7280;
-}
-
-.loading-state .spinner {
-  width: 40px;
-  height: 40px;
+/* Loading Spinner */
+.spinner {
+  width: 32px;
+  height: 32px;
   border: 3px solid #e5e7eb;
   border-top-color: #0069ff;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
-  margin-bottom: 16px;
+  margin: 0 auto 16px;
 }
 
 @keyframes spin {
@@ -96,16 +115,7 @@
 }
 
 @media (max-width: 768px) {
-  .page-container {
+  .dashboard-page {
     padding: 20px 16px;
-  }
-
-  .dashboard-header {
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .page-title {
-    font-size: 24px;
   }
 }

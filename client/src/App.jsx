@@ -25,17 +25,17 @@ import PublicBooking from './pages/PublicBooking';
 import Confirmation from './pages/Confirmation';
 
 /**
- * Admin Layout — wraps admin pages with the Navbar
- * Using Outlet from React Router to render child routes
+ * Admin Layout — wraps admin pages with the Sidebar
+ * Uses CSS Grid: sidebar on left, content on right
  */
 function AdminLayout() {
   return (
-    <>
+    <div className="admin-layout">
       <Navbar />
       <main className="admin-main">
         <Outlet />
       </main>
-    </>
+    </div>
   );
 }
 
