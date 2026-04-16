@@ -57,9 +57,13 @@ function Meetings() {
 
   const handleReschedule = async () => {
     if (!newDateTime) return;
+    const picked = new Date(newDateTime);
+    if (picked <= new Date()) {
+      setToast({ message: 'Cannot reschedule to a past date/time', type: 'error' });
+      return;
+    }
     try {
-      // Convert datetime-local value to ISO string
-      const isoTime = new Date(newDateTime).toISOString();
+      const isoTime = picked.toISOString();
       await rescheduleMeeting(rescheduleModal.id, { new_start_time: isoTime });
       setRescheduleModal(null);
       setNewDateTime('');
@@ -69,6 +73,13 @@ function Meetings() {
       const msg = error.response?.data?.message || 'Failed to reschedule';
       setToast({ message: msg, type: 'error' });
     }
+  };
+
+  // Min datetime for reschedule (current time, formatted for datetime-local)
+  const getMinDateTime = () => {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    return now.toISOString().slice(0, 16);
   };
 
   const formatDate = (dateStr) => {
@@ -221,6 +232,7 @@ function Meetings() {
           <input
             type="datetime-local"
             value={newDateTime}
+            min={getMinDateTime()}
             onChange={(e) => setNewDateTime(e.target.value)}
             style={{
               width: '100%', padding: '10px', border: '1px solid #d1d5db',
