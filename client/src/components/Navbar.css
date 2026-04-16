@@ -39,6 +39,10 @@
   cursor: pointer;
   margin-bottom: 24px;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .sidebar-create-btn:hover {
@@ -79,9 +83,8 @@
 }
 
 .sidebar-icon {
-  font-size: 18px;
-  width: 24px;
-  text-align: center;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
 }
 

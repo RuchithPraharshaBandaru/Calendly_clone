@@ -170,7 +170,7 @@ function Availability() {
           <div className="hours-section">
             <div className="hours-header">
               <div>
-                <h3><span>🕐</span> Weekly hours</h3>
+                <h3>Weekly hours</h3>
                 <p className="hours-subtitle">Set when you are typically available for meetings</p>
               </div>
             </div>
@@ -220,7 +220,7 @@ function Availability() {
           <div className="overrides-section">
             <div className="overrides-header">
               <div>
-                <h3><span>📅</span> Date-specific hours</h3>
+                <h3>Date-specific hours</h3>
               </div>
               <button className="add-hours-btn" onClick={() => setShowOverrideForm(!showOverrideForm)}>
                 + Hours
@@ -265,7 +265,7 @@ function Availability() {
 
           {/* Timezone */}
           <div className="timezone-section">
-            <label>🌐 Timezone:</label>
+            <label>Timezone:</label>
             <select className="timezone-select" value={scheduleDetail.timezone} disabled>
               <option value="Asia/Kolkata">Asia/Kolkata (IST)</option>
               <option value="America/New_York">America/New_York (EST)</option>
