@@ -1,0 +1,285 @@
+.availability-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.schedule-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.schedule-tab {
+  padding: 10px 20px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.schedule-tab:hover {
+  border-color: #0069ff;
+  color: #0069ff;
+}
+
+.schedule-tab.active {
+  background: #0069ff;
+  border-color: #0069ff;
+  color: white;
+}
+
+.availability-section {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0 0 4px 0;
+}
+
+.section-desc {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0 0 20px 0;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #1a1a2e;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+  background: white;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #0069ff;
+  box-shadow: 0 0 0 3px rgba(0, 105, 255, 0.1);
+}
+
+/* Weekly Grid */
+.weekly-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 16px;
+}
+
+.day-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: #f9fafb;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.day-row:hover {
+  background: #f3f4f6;
+}
+
+.day-row.disabled {
+  opacity: 0.6;
+}
+
+.day-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  min-width: 140px;
+}
+
+.day-toggle input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #0069ff;
+  cursor: pointer;
+}
+
+.day-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.time-range {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.time-input {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #1a1a2e;
+  background: white;
+  width: auto;
+}
+
+.time-input:focus {
+  outline: none;
+  border-color: #0069ff;
+  box-shadow: 0 0 0 3px rgba(0, 105, 255, 0.1);
+}
+
+.time-separator {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.unavailable-text {
+  font-size: 14px;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* Date Overrides */
+.overrides-list {
+  margin-bottom: 16px;
+}
+
+.override-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #f9fafb;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.override-date {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a2e;
+  margin-right: 12px;
+}
+
+.override-time {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.override-delete {
+  background: none;
+  border: none;
+  color: #ef4444;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.override-delete:hover {
+  background: #fef2f2;
+}
+
+.add-override {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.add-override .form-input {
+  width: auto;
+  flex: 0 0 auto;
+}
+
+.add-override span {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* Save Bar */
+.save-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 0;
+}
+
+.save-btn {
+  min-width: 160px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .availability-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .day-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .add-override {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-override .form-input,
+  .add-override .time-input {
+    width: 100%;
+  }
+}

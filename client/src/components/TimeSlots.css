@@ -1,0 +1,125 @@
+.time-slots {
+  width: 100%;
+  max-width: 280px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.slots-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0 0 16px 0;
+}
+
+.slots-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.slot-item {
+  width: 100%;
+}
+
+.slot-button {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #0069ff;
+  border-radius: 8px;
+  background: white;
+  color: #0069ff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.slot-button:hover {
+  background: #eff6ff;
+}
+
+.slot-button.slot-selected {
+  background: #374151;
+  border-color: #374151;
+  color: white;
+  flex: 1;
+}
+
+.slot-confirm-row {
+  display: flex;
+  gap: 8px;
+  animation: expandRow 0.2s ease;
+}
+
+.slot-confirm-button {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: #0069ff;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.slot-confirm-button:hover {
+  background: #0058d6;
+}
+
+.slots-loading, .no-slots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: #6b7280;
+  text-align: center;
+}
+
+.no-slots-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #0069ff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 12px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes expandRow {
+  from { opacity: 0; transform: scaleX(0.95); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+
+/* Scrollbar styling */
+.time-slots::-webkit-scrollbar {
+  width: 6px;
+}
+
+.time-slots::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.time-slots::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+@media (max-width: 768px) {
+  .time-slots {
+    max-width: 100%;
+    max-height: 300px;
+  }
+}

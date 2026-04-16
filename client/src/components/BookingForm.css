@@ -1,0 +1,158 @@
+.booking-form {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  min-height: 400px;
+}
+
+.booking-form-header {
+  flex: 0 0 280px;
+  padding: 32px 24px;
+  border-right: 1px solid #e5e7eb;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #0069ff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 24px;
+  transition: color 0.2s;
+}
+
+.back-button:hover {
+  color: #0058d6;
+}
+
+.booking-summary {
+  display: flex;
+  gap: 12px;
+}
+
+.summary-color {
+  width: 4px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.summary-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0 0 12px 0;
+}
+
+.summary-detail {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 6px 0;
+}
+
+.booking-form-fields {
+  flex: 1;
+  padding: 32px;
+}
+
+.form-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0 0 24px 0;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #1a1a2e;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #0069ff;
+  box-shadow: 0 0 0 3px rgba(0, 105, 255, 0.1);
+}
+
+.form-input.input-error {
+  border-color: #ef4444;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+.error-text {
+  display: block;
+  font-size: 12px;
+  color: #ef4444;
+  margin-top: 4px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 14px;
+  background: #0069ff;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 8px;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: #0058d6;
+}
+
+.submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .booking-form {
+    flex-direction: column;
+  }
+
+  .booking-form-header {
+    flex: none;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 20px;
+  }
+
+  .booking-form-fields {
+    padding: 20px;
+  }
+}

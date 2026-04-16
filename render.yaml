@@ -1,0 +1,22 @@
+# Render deployment configuration
+# This file tells Render how to build and run the app
+
+services:
+  - type: web
+    name: calendly-clone
+    runtime: node
+    buildCommand: npm run render-build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_HOST
+        sync: false  # Set manually in Render dashboard
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        sync: false
+      - key: DB_PORT
+        sync: false

@@ -1,0 +1,158 @@
+.confirmation-page {
+  min-height: 100vh;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.confirmation-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  max-width: 520px;
+  width: 100%;
+  padding: 48px 40px;
+  text-align: center;
+  animation: fadeInUp 0.5s ease;
+}
+
+.confirmation-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #ecfdf5;
+  color: #10b981;
+  font-size: 32px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  animation: scaleIn 0.5s ease;
+}
+
+.confirmation-icon.confirmed {
+  background: #ecfdf5;
+  color: #10b981;
+  border: 3px solid #a7f3d0;
+}
+
+.confirmation-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 8px 0;
+}
+
+.confirmation-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 32px 0;
+}
+
+.confirmation-details {
+  text-align: left;
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.detail-event-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0 0 20px 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.detail-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.detail-value {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.confirmation-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.book-another-link {
+  color: #0069ff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.book-another-link:hover {
+  text-decoration: underline;
+}
+
+.back-home-link {
+  color: #0069ff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 16px;
+  display: inline-block;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 600px) {
+  .confirmation-container {
+    padding: 32px 24px;
+  }
+
+  .confirmation-title {
+    font-size: 24px;
+  }
+}
