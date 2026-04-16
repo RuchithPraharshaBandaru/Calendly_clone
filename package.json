@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Full-stack Calendly Clone — React + Express + MySQL",
   "scripts": {
-    "install:all": "cd server && npm install && cd ../client && npm install",
+    "install:all": "cd server && npm install && cd ../client && npm install --include=dev",
     "build": "cd client && npm run build",
     "start": "cd server && node server.js",
     "dev:server": "cd server && npm run dev",
