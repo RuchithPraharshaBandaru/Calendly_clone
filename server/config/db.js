@@ -40,10 +40,11 @@ const pool = mysql.createPool(poolConfig);
 
 /**
  * Initialize database by running schema.sql
- * Creates the database and all tables if they don't exist
+ * In production (Aiven), tables are created in the existing database.
+ * In development (local), the database is created first if needed.
  */
 async function initializeDatabase() {
-  // First, connect without specifying a database to create it
+  const dbName = process.env.DB_NAME || 'calendly_clone';
   const connConfig = {
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
@@ -53,16 +54,23 @@ async function initializeDatabase() {
   };
   if (isProduction) {
     connConfig.ssl = { rejectUnauthorized: false };
+    connConfig.database = dbName; // Use existing Aiven database
   }
+
   const connection = await mysql.createConnection(connConfig);
 
   try {
+    // In local dev, create the database if it doesn't exist
+    if (!isProduction) {
+      await connection.query(`CREATE DATABASE IF NOT EXISTS \`${dbName}\``);
+      await connection.query(`USE \`${dbName}\``);
+    }
+
     const schemaPath = path.join(__dirname, '../schema.sql');
     const schema = fs.readFileSync(schemaPath, 'utf8');
     await connection.query(schema);
     console.log('✅ Database schema initialized successfully');
   } catch (error) {
-    // If tables already exist, that's fine
     if (error.code === 'ER_TABLE_EXISTS_ERROR') {
       console.log('ℹ️  Tables already exist, skipping schema creation');
     } else {

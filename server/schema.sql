@@ -1,8 +1,5 @@
 -- Calendly Clone Database Schema
--- Run this to set up the database from scratch
-
-CREATE DATABASE IF NOT EXISTS calendly_clone;
-USE calendly_clone;
+-- Tables are created in the database specified by DB_NAME env var
 
 -- Users table (default user, no auth needed)
 CREATE TABLE IF NOT EXISTS users (
