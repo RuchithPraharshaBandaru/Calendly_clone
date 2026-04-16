@@ -33,7 +33,7 @@ const poolConfig = {
 
 // Cloud MySQL providers require SSL connections
 if (isProduction) {
-  poolConfig.ssl = { rejectUnauthorized: true };
+  poolConfig.ssl = { rejectUnauthorized: false };
 }
 
 const pool = mysql.createPool(poolConfig);
@@ -52,7 +52,7 @@ async function initializeDatabase() {
     multipleStatements: true
   };
   if (isProduction) {
-    connConfig.ssl = { rejectUnauthorized: true };
+    connConfig.ssl = { rejectUnauthorized: false };
   }
   const connection = await mysql.createConnection(connConfig);
 
